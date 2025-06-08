@@ -7,11 +7,11 @@ import 'package:shopping_app/app/data/models/cart_item.dart';
 
 class CartItemCard extends StatelessWidget {
   final CartItem cartItem;
-  const CartItemCard({super.key, required this.cartItem});
+  CartItemCard({super.key, required this.cartItem});
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
-    final cartController = Get.find<CartController>();
     return Container(
       margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.all(16),

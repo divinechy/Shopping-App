@@ -13,6 +13,7 @@ class Cart extends StatelessWidget {
     final cartController = Get.find<CartController>();
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         title: Column(
@@ -56,7 +57,10 @@ class Cart extends StatelessWidget {
             padding: EdgeInsets.all(16),
             child: Row(
               children: [
-                Icon(Icons.arrow_back_ios, size: 16),
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Icon(Icons.arrow_back_ios, size: 16),
+                ),
                 SizedBox(width: 8),
                 Text(
                   'Your Cart',
@@ -101,7 +105,7 @@ class Cart extends StatelessWidget {
             () =>
                 cartController.cartItems.isNotEmpty
                     ? Container(
-                      padding: EdgeInsets.all(16),
+                      padding: EdgeInsets.fromLTRB(16, 16, 16, 32),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: [

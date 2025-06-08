@@ -14,12 +14,9 @@ class ProductDetail extends StatelessWidget {
     final Product product = Get.arguments;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () => Get.back(),
-        ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -61,11 +58,21 @@ class ProductDetail extends StatelessWidget {
             padding: EdgeInsets.all(16),
             child: Row(
               children: [
-                Icon(Icons.arrow_back_ios, size: 16),
-                SizedBox(width: 8),
-                Text(
-                  'Go back',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                GestureDetector(
+                  onTap: () => Get.back(),
+                  child: Row(
+                    children: [
+                      Icon(Icons.arrow_back_ios, size: 16),
+                      SizedBox(width: 8),
+                      Text(
+                        'Go back',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Spacer(),
                 Icon(Icons.favorite_border, size: 24),
@@ -130,13 +137,13 @@ class ProductDetail extends StatelessWidget {
                       height: 1.5,
                     ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: 24),
                 ],
               ),
             ),
           ),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.fromLTRB(16, 16, 16, 32),
             child: SizedBox(
               width: double.infinity,
               height: 56,

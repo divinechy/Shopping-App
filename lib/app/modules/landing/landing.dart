@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/app/controllers/cart_controller.dart';
-import 'package:shopping_app/app/modules/cart/cart.dart';
+import 'package:shopping_app/app/routes/pages.dart';
 import 'package:shopping_app/app/widgets/home.dart';
 
 class Landing extends StatelessWidget {
@@ -18,7 +18,7 @@ class Landing extends StatelessWidget {
           index: currentIndex.value,
           children: [
             Home(),
-            Cart(),
+            SizedBox(),
             SizedBox(child: Center(child: Text('Favorites'))),
             SizedBox(child: Center(child: Text('Profile'))),
           ],
@@ -26,8 +26,14 @@ class Landing extends StatelessWidget {
       ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
-          currentIndex: currentIndex.value,
-          onTap: (index) => currentIndex.value = index,
+          currentIndex: currentIndex.value == 1 ? 0 : currentIndex.value,
+          onTap: (index) {
+            if (index == 1) {
+              Get.toNamed(Routes.cart);
+            } else {
+              currentIndex.value = index;
+            }
+          },
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.grey,
