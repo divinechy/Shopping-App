@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/app/data/models/cart_item.dart';
@@ -23,63 +25,85 @@ class CartController extends GetxController {
     } else {
       cartItems.add(CartItem(product: product));
     }
-
+    cartItems.refresh();
     _showCustomToast();
   }
 
   void _showCustomToast() {
     Get.showSnackbar(
       GetSnackBar(
-        messageText: Row(
-          children: [
-            Container(
-              width: 4,
-              height: 50,
-              decoration: BoxDecoration(
-                color: Color(0xFF10B981), // Green color
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            SizedBox(width: 12),
-            Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Color(0xFF10B981),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(Icons.check, color: Colors.white, size: 16),
-            ),
-            SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                'Item has been added to cart',
-                style: TextStyle(
-                  color: Color(0xFF374151),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'IBM Plex Sans',
+        messageText: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            height: 56,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  spreadRadius: 0,
+                  blurRadius: 10,
+                  offset: Offset(0, 4),
                 ),
-              ),
+              ],
             ),
-            IconButton(
-              onPressed: () => Get.back(),
-              icon: Icon(Icons.close, color: Color(0xFF6B7280), size: 20),
+            child: Row(
+              children: [
+                Container(width: 4, color: Color(0xFF10B981)),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 24,
+                          height: 24,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: Color(0xFF10B981),
+                              width: 2,
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.check,
+                            size: 14,
+                            color: Color(0xFF10B981),
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            'Item has been added to cart',
+                            style: TextStyle(
+                              color: Color(0xFF374151),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: 'IBM Plex Sans',
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () => Get.back(),
+                          icon: Icon(
+                            Icons.close,
+                            color: Color(0xFF6B7280),
+                            size: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         duration: Duration(seconds: 3),
         margin: EdgeInsets.all(16),
-        borderRadius: 12,
-        boxShadows: [
-          BoxShadow(
-            // ignore: deprecated_member_use
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 0,
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
+        borderRadius: 0,
         snackPosition: SnackPosition.TOP,
         isDismissible: true,
         dismissDirection: DismissDirection.horizontal,
@@ -92,13 +116,16 @@ class CartController extends GetxController {
     if (index >= 0) {
       if (newQuantity > 0) {
         cartItems[index].quantity = newQuantity;
+        cartItems.refresh();
       } else {
         removeFromCart(productId);
+        cartItems.refresh();
       }
     }
   }
 
   void removeFromCart(String productId) {
     cartItems.removeWhere((item) => item.product.id == productId);
+    cartItems.refresh();
   }
 }

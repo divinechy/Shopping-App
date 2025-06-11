@@ -9,8 +9,10 @@ class ProductController extends GetxController {
           name: 'Apple iPhone 16 128GB|Teal',
           price: 700.00,
           image: 'lib/app/assets/images/iPhone.png',
-          description:
-              'This pre-owned product is not Apple certified, but has been professionally inspected, tested and cleaned by Amazon-qualified suppliers. There will be no visible cosmetic imperfections when held at an arm\'s length.',
+          description: '''
+* This pre-owned product is not Apple certified, but has been professionally inspected, tested and cleaned by Amazon-qualified suppliers.
+* There will be no visible cosmetic imperfections when held at an arm’s length. There will be no visible cosmetic imperfections when held at an arm’s length.
+''',
         ),
         Product(
           id: '2',

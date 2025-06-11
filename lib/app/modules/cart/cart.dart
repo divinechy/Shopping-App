@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/app/controllers/cart_controller.dart';
 import 'package:shopping_app/app/modules/cart/cart_item_card.dart';
+import 'package:shopping_app/app/widgets/app_header.dart';
 
 class Cart extends StatelessWidget {
   const Cart({super.key});
@@ -12,49 +13,15 @@ class Cart extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = Get.find<CartController>();
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                'Full Logo',
-                style: TextStyle(color: Colors.blue, fontSize: 12),
-              ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              'DELIVERY ADDRESS',
-              style: TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-            Text(
-              'Umuezike Road, Oyo State',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Icon(Icons.notifications_outlined, color: Colors.grey),
-          SizedBox(width: 16),
-        ],
-        toolbarHeight: 80,
-      ),
+      backgroundColor: Colors.white,
+      appBar: AppHeader(),
       body: Column(
         children: [
+          SizedBox(height: 24),
+          Divider(height: 1, color: Colors.grey[300]),
+          SizedBox(height: 8),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.only(left: 16, right: 16),
             child: Row(
               children: [
                 GestureDetector(
@@ -64,7 +31,7 @@ class Cart extends StatelessWidget {
                 SizedBox(width: 8),
                 Text(
                   'Your Cart',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                 ),
               ],
             ),
@@ -96,7 +63,7 @@ class Cart extends StatelessWidget {
                 itemCount: cartController.cartItems.length,
                 itemBuilder: (context, index) {
                   final cartItem = cartController.cartItems[index];
-                  return CartItemCard(cartItem: cartItem);
+                  return CartItemCard(cartItem: cartItem).paddingOnly(top: 16);
                 },
               );
             }),

@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/app/controllers/cart_controller.dart';
 import 'package:shopping_app/app/data/models/product.dart';
+import 'package:shopping_app/app/theme/svgs.dart';
+import 'package:shopping_app/app/widgets/app_header.dart';
+import 'package:shopping_app/app/widgets/platform_svg.dart';
 
 class ProductDetail extends StatelessWidget {
   const ProductDetail({super.key});
@@ -12,50 +15,17 @@ class ProductDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartController = Get.find<CartController>();
     final Product product = Get.arguments;
+    final Size media = Get.mediaQuery.size;
+
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                'Full Logo',
-                style: TextStyle(color: Colors.blue, fontSize: 12),
-              ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              'DELIVERY ADDRESS',
-              style: TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-            Text(
-              'Umuezike Road, Oyo State',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Icon(Icons.notifications_outlined, color: Colors.grey),
-          SizedBox(width: 16),
-        ],
-        toolbarHeight: 80,
-      ),
+      appBar: AppHeader(),
       body: Column(
         children: [
+          SizedBox(height: 24),
+          Divider(height: 1, color: Colors.grey[300]),
+          SizedBox(height: 8),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.only(left: 16, right: 16),
             child: Row(
               children: [
                 GestureDetector(
@@ -68,14 +38,12 @@ class ProductDetail extends StatelessWidget {
                         'Go back',
                         style: TextStyle(
                           fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],
                   ),
                 ),
-                Spacer(),
-                Icon(Icons.favorite_border, size: 24),
               ],
             ),
           ),
@@ -86,58 +54,85 @@ class ProductDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    height: 300,
+                    height: media.height * 0.39,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.grey[50],
+                      color: Color(0xFFF8F5F5),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        product.image,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Center(
-                            child: Icon(
-                              Icons.image_not_supported,
-                              size: 80,
-                              color: Colors.grey,
-                            ),
-                          );
-                        },
-                      ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Spacer(),
+                            Container(
+                              height: 44,
+                              width: 44,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: PlatformSvg.asset(
+                                FAV,
+                                fit: BoxFit.scaleDown,
+                              ),
+                            ).paddingOnly(right: 16, top: 16),
+                          ],
+                        ),
+                        SizedBox(
+                          height: media.height * 0.28,
+                          child: Image.asset(
+                            product.image,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Center(
+                                child: Icon(
+                                  Icons.image_not_supported,
+                                  size: 80,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: 12),
                   Text(
                     product.name,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF000000),
+                    ),
                   ),
                   SizedBox(height: 16),
                   Text(
                     '\$${product.price.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       color: Colors.black,
                     ),
                   ),
-                  SizedBox(height: 24),
+                  SizedBox(height: 16),
                   Text(
                     'About this item',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF999999),
+                    ),
                   ),
-                  SizedBox(height: 12),
                   Text(
                     product.description,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.grey[600],
+                      color: Color(0xFF999999),
                       height: 1.5,
                     ),
                   ),
-                  SizedBox(height: 24),
                 ],
               ),
             ),

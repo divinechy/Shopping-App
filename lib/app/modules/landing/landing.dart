@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/app/controllers/cart_controller.dart';
 import 'package:shopping_app/app/routes/pages.dart';
+import 'package:shopping_app/app/theme/svgs.dart';
 import 'package:shopping_app/app/widgets/home.dart';
+import 'package:shopping_app/app/widgets/platform_svg.dart';
 
 class Landing extends StatelessWidget {
   const Landing({super.key});
@@ -36,13 +38,30 @@ class Landing extends StatelessWidget {
           },
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
+          unselectedItemColor: Color(0xFF000000),
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+              icon: PlatformSvg.asset(
+                HOME,
+                color:
+                    currentIndex.value == 0 ? Colors.blue : Color(0xFF000000),
+                width: 20,
+                height: 20,
+              ),
+              label: 'Home',
+            ),
             BottomNavigationBarItem(
               icon: Stack(
                 children: [
-                  Icon(Icons.shopping_cart),
+                  PlatformSvg.asset(
+                    CART,
+                    color:
+                        currentIndex.value == 1
+                            ? Colors.blue
+                            : Color(0xFF000000),
+                    width: 20,
+                    height: 20,
+                  ),
                   if (cartController.cartCount > 0)
                     Positioned(
                       right: 0,
@@ -73,11 +92,23 @@ class Landing extends StatelessWidget {
               label: 'Cart',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_border),
+              icon: PlatformSvg.asset(
+                FAV,
+                color:
+                    currentIndex.value == 2 ? Colors.blue : Color(0xFF000000),
+                width: 20,
+                height: 20,
+              ),
               label: 'Favorites',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
+              icon: PlatformSvg.asset(
+                PROFILE,
+                color:
+                    currentIndex.value == 3 ? Colors.blue : Color(0xFF000000),
+                width: 20,
+                height: 20,
+              ),
               label: 'Profile',
             ),
           ],

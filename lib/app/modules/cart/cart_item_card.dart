@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/app/controllers/cart_controller.dart';
 import 'package:shopping_app/app/data/models/cart_item.dart';
+import 'package:shopping_app/app/theme/svgs.dart';
+import 'package:shopping_app/app/widgets/platform_svg.dart';
 
 class CartItemCard extends StatelessWidget {
   final CartItem cartItem;
@@ -13,10 +15,10 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(left: 16, right: 16, bottom: 8),
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFFF8F5F5),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -33,7 +35,7 @@ class CartItemCard extends StatelessWidget {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: Colors.grey[50],
+              color: Color(0xFFF8F5F5),
               borderRadius: BorderRadius.circular(8),
             ),
             child: ClipRRect(
@@ -60,78 +62,93 @@ class CartItemCard extends StatelessWidget {
               children: [
                 Text(
                   cartItem.product.name,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 8),
                 Text(
                   '\$${cartItem.product.price.toStringAsFixed(2)}',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF334155),
+                  ),
                 ),
                 SizedBox(height: 8),
                 Text(
                   'In stock',
-                  style: TextStyle(color: Colors.green, fontSize: 12),
+                  style: TextStyle(color: Color(0xFF10B981), fontSize: 12),
+                ).paddingOnly(bottom: 12),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap:
+                          () => cartController.updateQuantity(
+                            cartItem.product.id,
+                            cartItem.quantity - 1,
+                          ),
+                      child: Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.remove, size: 20),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 40,
+                      child: Text(
+                        '${cartItem.quantity}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap:
+                          () => cartController.updateQuantity(
+                            cartItem.product.id,
+                            cartItem.quantity + 1,
+                          ),
+                      child: Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.add, size: 20),
+                      ),
+                    ),
+                    Container(
+                      width: 32,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                      child: PlatformSvg.asset(
+                        DELETE,
+                        fit: BoxFit.scaleDown,
+                        onTap:
+                            () => {
+                              cartController.removeFromCart(
+                                cartItem.product.id,
+                              ),
+                            },
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap:
-                        () => cartController.updateQuantity(
-                          cartItem.product.id,
-                          cartItem.quantity - 1,
-                        ),
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.remove, size: 16),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                    child: Text(
-                      '${cartItem.quantity}',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap:
-                        () => cartController.updateQuantity(
-                          cartItem.product.id,
-                          cartItem.quantity + 1,
-                        ),
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.add, size: 16),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 8),
-              GestureDetector(
-                onTap: () => cartController.removeFromCart(cartItem.product.id),
-                child: Icon(Icons.delete_outline, color: Colors.red, size: 20),
-              ),
-            ],
           ),
         ],
       ),

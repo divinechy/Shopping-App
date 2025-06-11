@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/app/controllers/product_controller.dart';
 import 'package:shopping_app/app/modules/product/product_card.dart';
+import 'package:shopping_app/app/theme/svgs.dart';
+import 'package:shopping_app/app/widgets/app_header.dart';
+import 'package:shopping_app/app/widgets/platform_svg.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -12,61 +15,32 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProductController productController = Get.find<ProductController>();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                'Full Logo',
-                style: TextStyle(color: Colors.blue, fontSize: 12),
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'DELIVERY ADDRESS',
-              style: TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-            Text(
-              'Umuezike Road, Oyo State',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          Icon(Icons.notifications_outlined, color: Colors.grey),
-          SizedBox(width: 16),
-        ],
-        toolbarHeight: 80,
-      ),
+      appBar: AppHeader(),
       body: Column(
         children: [
           Container(
+            height: 40,
             margin: EdgeInsets.all(16),
             padding: EdgeInsets.symmetric(horizontal: 16),
             decoration: BoxDecoration(
-              color: Colors.grey[100],
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: const Color(0xFFE2E8F0), width: 1),
             ),
             child: TextField(
               decoration: InputDecoration(
                 hintText: 'Search...',
                 border: InputBorder.none,
-                icon: Icon(Icons.search, color: Colors.grey),
+                icon: Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: PlatformSvg.asset(SEARCH, width: 20, height: 20),
+                ),
               ),
             ),
           ),
+          SizedBox(height: 8),
+          Divider(height: 1, color: Colors.grey[300]),
+          SizedBox(height: 8),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
@@ -75,19 +49,27 @@ class Home extends StatelessWidget {
                 SizedBox(width: 8),
                 Text(
                   'Technology',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF000000),
+                  ),
                 ),
               ],
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 12),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Smartphones, Laptops & Accessories',
-                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                ' Smartphones, Laptops &\n Accessories',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Color(0xFF000000),
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
