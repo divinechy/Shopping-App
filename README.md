@@ -21,6 +21,7 @@ A lightweight mobile shopping application built with **Flutter**, showcasing ess
 
 <p align="center">
   <img src="https://i.postimg.cc/hPMvPJJy/Simulator-Screenshot-i-Phone-16-Plus-2025-06-11-at-11-10-29.png" alt="Home" width="300"/>
+  <img src="https://i.postimg.cc/Bn668qHq/Simulator-Screenshot-i-Phone-16-Plus-2025-06-11-at-11-09-35.png" alt="Add to cart" width="300"/>
     <img src="https://i.postimg.cc/7P3bdtqy/Simulator-Screenshot-i-Phone-16-Plus-2025-06-11-at-11-09-48.png" alt="Add to cart" width="300"/>
    <img src="https://i.postimg.cc/28C3Dd5L/Simulator-Screenshot-i-Phone-16-Plus-2025-06-11-at-11-46-06.png" alt="Cart" width="300"/>
 </p>
